@@ -1,0 +1,122 @@
+.feed {
+    width: 100%;
+    max-width: 600px;
+    border-left: 1px solid #2f3336;
+    border-right: 1px solid #2f3336;
+    min-height: 100vh;
+    background-color: black;
+    color: white;
+    overflow-y: scroll;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #2f3336;
+    background-color: black;
+  
+    button {
+      flex: 1;
+      padding: 1rem;
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+  
+      &:hover {
+        background-color: #16181c;
+      }
+    }
+  
+    .active {
+        position: relative;
+    }
+    .active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%; /* center it */
+        transform: translateX(-50%);
+        width: 100px;
+        height: 2px;
+        background-color: rgb(0, 179, 255);
+      }
+  }
+  
+  .tweetList {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tweet {
+    display: flex;
+    padding: 12px 16px;
+    border-bottom: 1px solid #2f3336;
+  }
+  
+  .tweetLeft {
+    margin-right: 12px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .tweetRight {
+    flex: 1;
+  
+    .tweetHeader {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      color: #d9d9d9;
+  
+      strong {
+        margin-right: 0.5rem;
+      }
+  
+      span {
+        color: #71767b;
+        font-size: 0.9rem;
+      }
+    }
+  
+    p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+  
+    .tweetActions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      color: #71767b;
+      font-size: 18px;
+      max-width: 350px;
+  
+      svg {
+        cursor: pointer;
+        transition: color 0.2s;
+  
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+  
+  .liked {
+    color: hotpink;
+  
+    &:hover {
+      color: #ff69b4;
+    }
+  }

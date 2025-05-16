@@ -1,0 +1,183 @@
+.sidebarRight {
+    width: 100%;
+    max-width: 350px;
+    /* max width on large screens */
+    margin-right: auto;
+    /* push it to the right */
+    padding-left: 20px;
+    /* optional for spacing */
+    box-sizing: border-box;
+    flex-shrink: 1;
+    margin-top: 20px;
+    padding-left: 20px;
+
+
+    .searchBox {
+        margin-bottom: 1rem;
+
+        input {
+            width: 90%;
+            padding: 0.5rem;
+            border-radius: 999px;
+            border: none;
+            background-color: #1a1a1a;
+            color: white;
+            outline: none;
+            padding-left: 1rem;
+            height: 25px;
+        }
+    }
+
+    .trendingBox {
+        background-color: #000000;
+        padding: 1rem;
+        border-radius: 1rem;
+        border: 1px solid #2f3336;
+
+        h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .trendItem {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 25px 0px;
+
+            .trendName {
+                font-weight: bold;
+                color: white;
+                font-size: 15px;
+            }
+
+            .tweetCount {
+                font-size: 0.9rem;
+                color: #8899a6;
+                font-size: 13px;
+            }
+
+            .trendCategory {
+                color: #8899a6;
+                font-size: 13px;
+            }
+
+            .trendCategory,
+            .trendName,
+            .tweetCount {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}
+
+li {
+    list-style: none;
+}
+
+.whoToFollowBox {
+    background-color: #000000;
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #2f3336;
+}
+
+.whoToFollowBox h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.followItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.followItem:last-child {
+    border-bottom: none;
+}
+
+.profileImage {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.profileInfo {
+    flex-grow: 1;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.profileName {
+    font-weight: 600;
+    font-size: 15px;
+    display: block;
+}
+
+.profileHandle {
+    color: #657786;
+    font-size: 13px;
+}
+
+.profileName,
+.profileHandle {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.followButton {
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.followButton:hover {
+    background-color: #0d8ddb;
+}
+
+@media (max-width: 1350px) {
+    .sidebarRight {
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+}
+
+@media (max-width:1120px) {
+    .sidebarRight {
+        display: none;
+    }
+
+    .feed {
+        margin-right: auto;
+    }
+}

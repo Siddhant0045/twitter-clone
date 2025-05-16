@@ -12,7 +12,12 @@ const SignInPage = () => {
                     <div className={styles.greyline_signin}></div>
                     <p className={styles.or_word}>OR</p>
                     <div className={styles.greyline_signin}></div>
-                    </div>
+                </div>
+                <form className={styles.signin_form}>
+                    <input type="text" placeholder="Username" className={styles.signin_input} />
+                    <input type="password" placeholder="Password" className={styles.signin_input} />
+                    <button type="submit" className={styles.signin_btn}>Sign in</button>
+                </form>
             </div>
         </div>
     );

@@ -1,0 +1,77 @@
+/* TweetBox.module.scss */
+
+.tweetBox {
+    display: flex;
+    gap: 10px;
+    padding: 16px;
+    background-color: #000000;
+  }
+  
+  .profilePic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .tweetInputSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .textarea {
+    width: 90%;
+    border-radius: 8px;
+    resize: none;
+    font-size: 16px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    background-color: #000000;
+    color: white;
+  }
+  
+  .tweetBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6px;
+  }
+  
+  .imageUploadLabel {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .charCount {
+    color: #657786;
+    font-size: 14px;
+  }
+  
+  .imagePreviewContainer {
+    margin-top: 10px;
+  }
+  
+  .imagePreview {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 8px;
+  }
+  
+  .tweetActions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 16px 16px;
+    background-color: #000000;
+    border-bottom: 1px solid rgb(47, 51, 54);
+  }
+  
+  .tweetButton {
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: background-color 0.2s;
+  }
+  

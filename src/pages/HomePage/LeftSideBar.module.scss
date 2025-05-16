@@ -1,0 +1,113 @@
+.sidebarLeft {
+    width: 100%;
+    max-width: 250px;
+    /* max width on large screens */
+    margin-left: auto;
+    /* push it to left if inside flex */
+    padding-right: 20px;
+    /* optional spacing */
+    box-sizing: border-box;
+    flex-shrink: 1;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .logo {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 24px;
+        text-align: left;
+        padding-left: 20px;
+    }
+
+    .navList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navList li {
+        margin-bottom: 12px;
+    }
+
+    .navButton {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 16px;
+        background: transparent;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        background-color: black;
+        color: white;
+        height: 50px;
+    }
+
+    .navButton span{
+        margin-right: 5px;
+        font-size: 20px;
+    }
+
+    .navButton:hover {
+        background-color: #181818;
+        /* light blue */
+    }
+
+    .active{
+        background-color: #181818;
+        /* light blue */
+    }
+
+    .icon {
+        fill: currentColor;
+    }
+
+    .profileSection {
+        margin-top: auto;
+        padding-top: 1rem;
+      }
+      
+      .profileButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        text-align: left;
+        color: white;
+        margin-bottom: 20px;
+        width: 200px;
+      
+        &:hover {
+          background-color: #181818;
+          border-radius: 50px;
+        }
+      }
+      
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      
+      .userInfo {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .userName {
+        font-weight: bold;
+        font-size: 0.95rem;
+      }
+      
+      .userHandle {
+        font-size: 0.8rem;
+        color: #666;
+      }
+}
