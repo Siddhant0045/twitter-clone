@@ -14,17 +14,25 @@
 
     .searchBox {
         margin-bottom: 1rem;
+        position: relative;
 
         input {
             width: 90%;
             padding: 0.5rem;
+            padding-left: 35px;
             border-radius: 999px;
             border: none;
             background-color: #1a1a1a;
             color: white;
             outline: none;
-            padding-left: 1rem;
             height: 25px;
+        }
+        .searchIcon {
+            position: absolute;
+            font-size: 16px;
+            margin-top: 11px;
+            margin-left: 10px;
+            color: rgb(113, 118, 123);
         }
     }
 

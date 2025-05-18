@@ -5,8 +5,10 @@ function RightSideBar() {
     return <aside className={styles.sidebarRight}>
                     {/* Search Bar */}
                     <div className={styles.searchBox}>
-                        <input type="text" placeholder="Search Twitter" />
-                    </div>
+    <span className={styles.searchIcon}>🔍</span> {/* You can replace with SVG or an actual icon */}
+    <input type="text" placeholder="Search Twitter" />
+</div>
+
     
                     {/* Trending Section */}
                     <div className={styles.trendingBox}>

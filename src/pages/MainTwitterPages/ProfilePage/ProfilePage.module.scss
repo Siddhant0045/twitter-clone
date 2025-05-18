@@ -1,0 +1,131 @@
+.profile_section{
+    width: 100%;
+    max-width: 600px;
+    border-left: 1px solid #2f3336;
+    border-right: 1px solid #2f3336;
+    min-height: 100vh;
+    background-color: black;
+    color: white;
+    overflow-y: scroll;
+  }
+
+
+.profilesection_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 55px;
+    padding: 0px 16px;
+}
+
+.back_option_profilesection{
+    margin: auto 0px;
+    cursor: pointer;
+
+}
+
+
+
+.profile_page_banner{
+    height: 200px;
+    width: 100%;
+}
+
+.profile_page_profile_photo_div{
+    height: 70px;
+}
+
+.profile_page_profile_photo{
+    position: relative;
+    top: -90px;
+    left: 0px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 5px solid rgb(0, 0, 0);
+}
+
+.edit_profile_btn{
+    position: relative;
+    top: -120px;
+    left: 300px;
+    right: auto;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid rgb(83, 100, 113);
+    font-weight: 700;
+}
+
+.profile_information{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.profile_name{
+    font-size: 20px;
+}
+
+.profile_no_of_tweets{
+    font-size: 14px;
+    color: rgb(113, 118, 123);
+    margin-top: 2px;
+}
+
+.profile_your_name{
+    font-size: 20px;
+}
+
+.profile_username{
+    font-size: 15px;
+    color: rgb(113, 118, 123);
+    font-weight: 500;
+    margin: 2px 0px;
+}
+
+.profile_bio{
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    margin: 18px 0px;
+}
+
+.followers_following_profilepage{
+    display: flex;
+    flex-direction: row;
+    color: rgb(113, 118, 123);
+    font-size: 14px;
+    gap: 20px;
+}
+
+.button_of_profile_page{
+    width: 100%;
+    background-color: black;
+    color: rgb(113, 118, 123);
+    height: 50px;
+    border: none;
+    font-weight: 600;
+    position: relative;
+}
+
+.button_of_profile_page:hover{
+    background-color: rgb(15, 20, 25);
+}
+
+.active {
+    color: white;
+}
+
+.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 3px;
+    background-color: rgb(29, 155, 240); /* Twitter blue */
+    border-radius: 2px;
+}
