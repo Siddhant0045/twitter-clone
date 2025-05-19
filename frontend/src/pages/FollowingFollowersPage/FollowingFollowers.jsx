@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./FollowingFollowers.module.scss"; // your CSS module
-import { fetchFollowers, fetchFollowing } from "../../api/followAPI"; // your API calls
 import defaultProfilePhoto from "/src/public/Images/Siddhant.jpg";
 
 function FollowingFollowers({ type }) {

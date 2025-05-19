@@ -3,7 +3,7 @@ import { useParams, useLocation, Link, Outlet, useNavigate } from "react-router-
 import styles from "./ProfilePage.module.scss";
 import { auth } from "../../firebase/firebase";
 import { fetchUserById } from "../../api/userAPI";
-import { followUser, unfollowUser, fetchFollowers } from "../../api/followAPI"; // added fetchFollowers
+import { followUser, unfollowUser } from "../../api/followAPI";
 import defaultBanner from "/src/public/Images/image.png";
 import defaultProfilePhoto from "/src/public/Images/Siddhant.jpg";
 
@@ -23,7 +23,6 @@ function ProfilePage() {
     const getUserData = async () => {
       try {
         const user = await fetchUserById(userId);
-        console.log("Visited User Data:", user); // ✅ This logs the visited profile user
         setUserData(user);
         setIsOwnProfile(user.uid === currentUserId);
       } catch (error) {
@@ -31,33 +30,13 @@ function ProfilePage() {
       }
     };
 
-    const getFollowers = async () => {
-      try {
-        // Fetch the followers list for this profile user from backend
-        const followersList = await fetchFollowers(userId);
-        // Check if current userId is in followers list
-        const followingStatus = followersList.some(follower => {
-          // follower.follower could be an object or id depending on your backend populate
-          // Adjust accordingly:
-          if (typeof follower.follower === "object") return follower.follower._id === currentUserId || follower.follower.uid === currentUserId;
-          return follower.follower === currentUserId;
-        });
-        setIsFollowing(followingStatus);
-      } catch (error) {
-        console.error("Failed to fetch followers:", error);
-        setIsFollowing(false);
-      }
-    };
-
-    if (userId) {
+    if (userId && currentUserId) {
       getUserData();
-      getFollowers();
     }
   }, [userId, currentUserId]);
 
   if (!userData) return <div>Loading...</div>;
 
-  // Check if route is followers or following to only show those lists
   const isFollowRoute =
     location.pathname.endsWith("/followers") || location.pathname.endsWith("/following");
 
@@ -66,7 +45,7 @@ function ProfilePage() {
   }
 
   const handleFollowToggle = async () => {
-    if (loadingFollow) return;
+    if (loadingFollow || !currentUserId) return;
     setLoadingFollow(true);
 
     try {
@@ -166,7 +145,6 @@ function ProfilePage() {
         </div>
       </div>
 
-      {/* Nested routes Outlet for followers/following lists */}
       <div style={{ marginTop: "20px" }}>
         <Outlet />
       </div>
