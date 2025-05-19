@@ -12,6 +12,9 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
   const [error, setError] = useState(null);
 
   const currentUserId = auth.currentUser?.uid;
+  const user = auth.currentUser;
+
+
 
   const remainingChars = MAX_CHARS - tweetText.length;
 
@@ -47,7 +50,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ content: tweetText, author: currentUserId}),
+        body: JSON.stringify({ content: tweetText, author: currentUserId , email: user?.email}),
       });
 
       if (!response.ok) {
@@ -73,7 +76,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
     <div>
       <div className={styles.tweetBox}>
         <img
-            src={currentUserId?.photoURL || './src/Images/default.jpg'}
+            src={user?.photoURL || './src/Images/default.jpg'}
             alt="Profile"
           className={styles.profilePic}
         />
@@ -81,7 +84,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
           <textarea
             maxLength={MAX_CHARS}
             rows={4}
-            placeholder="What's happening?"
+            placeholder={"What's happening?"}
             value={tweetText}
             onChange={handleTextChange}
             className={styles.textarea}

@@ -56,7 +56,8 @@ function Feed() {
 
               <div className={styles.tweetRight}>
                 <div className={styles.tweetHeader}>
-                  {tweet.author?.name || "unknown"}
+                  <span style={{fontWeight:"600",color:"white",fontSize:"15px"}}>{tweet.author?.name || "unknown"}</span>
+                  <span style={{color:"grey",fontSize:"14px"}}>@{tweet.email.split("@")[0]}</span>
                   <span> · {new Date(tweet.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
                 </div>
 

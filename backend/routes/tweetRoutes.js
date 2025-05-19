@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
 // Create a new tweet
 router.post('/', async (req, res) => {
   try {
-    const { content, author: userUid } = req.body;
+    const { content, author: userUid, email } = req.body;
 
-    if (!content || !userUid) {
+    if (!content || !userUid || !email) {
       return res.status(400).json({ error: 'Content and author uid are required' });
     }
 
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
     }
 
     // Create tweet with user's ObjectId
-    const tweet = new Tweet({ content, author: user._id });
+    const tweet = new Tweet({ content, author: user._id, email });
     await tweet.save();
 
     res.status(201).json(tweet);
