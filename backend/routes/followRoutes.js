@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Follow = require('../models/Follow');
-const User = require('../models/User'); // Import your User model
+const User = require('../models/User');
 
 // Follow a user
 router.post('/', async (req, res) => {
@@ -26,8 +26,19 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Already following this user' });
     }
 
+    // Create new follow document
     const follow = new Follow({ follower: followerUser._id, following });
     await follow.save();
+
+    // Update User followers/following arrays
+    await User.findByIdAndUpdate(following, {
+      $addToSet: { followers: followerUser._id }
+    });
+
+    await User.findByIdAndUpdate(followerUser._id, {
+      $addToSet: { following: following }
+    });
+
     res.status(201).json(follow);
   } catch (err) {
     console.error(err);
@@ -51,32 +62,19 @@ router.delete('/', async (req, res) => {
 
     if (!result) return res.status(404).json({ error: 'Follow relationship not found' });
 
+    // Remove from User followers/following arrays
+    await User.findByIdAndUpdate(following, {
+      $pull: { followers: followerUser._id }
+    });
+
+    await User.findByIdAndUpdate(followerUser._id, {
+      $pull: { following: following }
+    });
+
     res.json({ message: 'Unfollowed successfully' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to unfollow user' });
-  }
-});
-
-// Get followers of a user
-router.get('/followers/:userId', async (req, res) => {
-  try {
-    const followers = await Follow.find({ following: req.params.userId }).populate('follower', 'username profilePicUrl');
-    res.json(followers);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to get followers' });
-  }
-});
-
-// Get following of a user
-router.get('/following/:userId', async (req, res) => {
-  try {
-    const following = await Follow.find({ follower: req.params.userId }).populate('following', 'username profilePicUrl');
-    res.json(following);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to get following' });
   }
 });
 

@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
   // Make these optional if not provided for OAuth users:
   username: { type: String }, // remove required: true
   passwordHash: { type: String }, // remove required: true
+
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
 
 module.exports = mongoose.model('User', userSchema);

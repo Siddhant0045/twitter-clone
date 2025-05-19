@@ -23,6 +23,7 @@ function ProfilePage() {
     const getUserData = async () => {
       try {
         const user = await fetchUserById(userId);
+        console.log("Visited User Data:", user); // ✅ This logs the visited profile user
         setUserData(user);
         setIsOwnProfile(user.uid === currentUserId);
       } catch (error) {
