@@ -58,7 +58,7 @@ function RightSideBar() {
                         <ul>
                             <li>
                                 <div className={styles.followItem}>
-                                    <img src="/src/Images/Siddhant.jpg" alt="Siddhant Shinde" className={styles.profileImage} />
+                                    <img src="/src/public/Images/Siddhant.jpg" alt="Siddhant Shinde" className={styles.profileImage} />
                                     <div className={styles.profileInfo}>
                                         <span className={styles.profileName}>Siddhant Shinde</span>
                                         <span className={styles.profileHandle}>@siddhant_codes</span>

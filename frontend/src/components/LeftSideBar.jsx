@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './LeftSideBar.module.scss';
-import { auth } from '../../helpers/firebase';
-import { fetchAllUsers, fetchUserById } from '../../api/userAPI';
+import { auth } from '../firebase/firebase';
+import { fetchAllUsers, fetchUserById } from '../api/userAPI';
 
 const LeftSidebar = () => {
+  const navigate = useNavigate();
   const currentUserId = auth.currentUser?.uid;
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -37,7 +39,10 @@ const LeftSidebar = () => {
       <nav>
         <ul className={styles.navList}>
           <li>
-            <button className={`${styles.navButton} ${styles.active}`}>
+            <button
+              className={`${styles.navButton}`}
+              onClick={() => navigate('/homepage')}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                 className="bi bi-house-door-fill" viewBox="0 0 16 16">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 
@@ -50,18 +55,23 @@ const LeftSidebar = () => {
             </button>
           </li>
           <li>
-            <button className={styles.navButton}>
+            <button
+              className={styles.navButton}
+              onClick={() => navigate(`/homepage/profile/${selectedUser?._id}`)}
+              disabled={!selectedUser} // prevents clicking before data is loaded
+            >
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                 className="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 
-                4-1 1-1 1zm5-6a3 3 0 1 0 
-                0-6 3 3 0 0 0 0 6"/>
+      4-1 1-1 1zm5-6a3 3 0 1 0 
+      0-6 3 3 0 0 0 0 6"/>
               </svg>
               <span>Profile</span>
             </button>
           </li>
+
           <li>
-            <button className={styles.navButton}>
+            <button className={styles.navButton} onClick={() => auth.signOut()}>
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                 viewBox="0 0 16 16">
                 <path d="M3 9.5a1.5 1.5 0 1 1 0-3 

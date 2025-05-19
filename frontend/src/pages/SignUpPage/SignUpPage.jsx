@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./SignUpPage.module.scss";
-import { auth } from "../../helpers/firebase";
+import { auth } from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,

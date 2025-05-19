@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./SignInPage.module.scss";
-import { auth } from "../../helpers/firebase";
+import { auth } from "../../firebase/firebase";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,

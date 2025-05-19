@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./TweetBox.module.scss";
-import { auth } from "../../helpers/firebase";
+import { auth } from "../firebase/firebase";
 
 const TweetBox = ({ onTweetPosted,currentUser }) => {
   const MAX_CHARS = 280;
