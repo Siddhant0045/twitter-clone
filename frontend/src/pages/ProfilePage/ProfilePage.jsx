@@ -11,6 +11,7 @@ function ProfilePage() {
   const { userId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const [selectedTab, setSelectedTab] = useState("posts");
 
   const [userData, setUserData] = useState(null);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
@@ -152,6 +153,29 @@ function ProfilePage() {
             <strong>{userData.followers ? userData.followers.length : 0}</strong> Followers
           </Link>
         </div>
+      </div>
+
+      <div className={styles.buttons_profile_page}>
+        <div className={`${styles.button_of_profile_page} ${selectedTab === "posts" ? styles.active : ""}`} onClick={() => setSelectedTab("posts")}>
+          Posts
+        </div>
+        <div className={`${styles.button_of_profile_page} ${selectedTab === "likes" ? styles.active : ""}`} onClick={() => setSelectedTab("likes")}>
+          Likes
+        </div>
+      </div>
+      <div className={styles.profile_page_posts}>
+        {selectedTab === "posts" && (
+          <div style={{width: "100%",height: "200px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+          {/* Render user's liked posts here */}
+          <p>Feature not implemented yet</p>
+        </div>
+        )}
+        {selectedTab === "likes" && (
+          <div style={{width: "100%",height: "200px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+            {/* Render user's liked posts here */}
+            <p>Feature not implemented yet</p>
+          </div>
+        )}
       </div>
 
       <div style={{ marginTop: "20px" }}>

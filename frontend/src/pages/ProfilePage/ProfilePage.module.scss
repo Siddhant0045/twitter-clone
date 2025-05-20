@@ -124,31 +124,38 @@
     gap: 20px;
 }
 
-.button_of_profile_page{
-    width: 100%;
-    background-color: black;
-    color: rgb(113, 118, 123);
-    height: 50px;
-    border: none;
+.buttons_profile_page {
+    display: flex;
+    justify-content: center; // Centers buttons horizontally
+    padding-bottom: 8px; // Some spacing below buttons
+    gap: 40px; // Spacing between the buttons
+    border-bottom: 1px solid #2f3336;
+  }
+  
+  .button_of_profile_page {
+    width: 300px;
+    text-align: center;
     font-weight: 600;
+    padding-bottom: 6px;
+    margin-top: 20px;
     position: relative;
-}
-
-.button_of_profile_page:hover{
-    background-color: rgb(15, 20, 25);
-}
-
-.active {
-    color: white;
-}
-
-.active::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 25%;
-    right: 25%;
-    height: 3px;
-    background-color: rgb(29, 155, 240); /* Twitter blue */
-    border-radius: 2px;
-}
+    cursor: pointer;
+  
+    // Optional: show active indicator as a line below button
+    &.active {
+  
+      &::after {
+        content: "";
+        content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%; // Half the width of the button
+      height: 3px;
+      background-color: #1d9bf0;
+      border-radius: 2px;
+      }
+    }
+  }
+  
