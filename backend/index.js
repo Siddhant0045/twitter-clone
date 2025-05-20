@@ -8,6 +8,7 @@ const tweetRoutes = require('./routes/tweetRoutes');
 const likeRoutes = require('./routes/likeRoutes');
 const followRoutes = require('./routes/followRoutes');
 const checkingRoutes = require('./routes/checkingroute');
+const giveObjectIdRoutes = require('./routes/giveobjectid');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api/tweets', tweetRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/follows', followRoutes);
 app.use('/api/checking', checkingRoutes);
+app.use('/api/objectid', giveObjectIdRoutes);
 
 // Start server
 const PORT = process.env.PORT || 8080;
