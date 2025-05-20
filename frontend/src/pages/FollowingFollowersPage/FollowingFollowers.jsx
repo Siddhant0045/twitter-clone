@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import styles from "./FollowingFollowers.module.scss"; // your CSS module
+import { useParams, useLocation } from "react-router-dom";
+import styles from "./FollowingFollowers.module.scss";
 import defaultProfilePhoto from "/src/public/Images/Siddhant.jpg";
+import { fetchFollowing, fetchFollowers } from "../../api/followHelpers"; // Adjust path as needed
 
-function FollowingFollowers({ type }) {
-  const { userId } = useParams(); // get userId from URL
+function FollowingFollowers() {
+  const { userId } = useParams();
+  const location = useLocation();
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Determine type from URL (e.g., /following or /followers)
+  const type = location.pathname.includes("followers") ? "followers" : "following";
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
-        let data;
+        let data = [];
         if (type === "followers") {
           data = await fetchFollowers(userId);
-        } else if (type === "following") {
+        } else {
           data = await fetchFollowing(userId);
         }
         setList(data);

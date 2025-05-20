@@ -19,19 +19,34 @@ function ProfilePage() {
 
   const currentUserId = auth.currentUser?.uid;
 
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const user = await fetchUserById(userId);
-        setUserData(user);
-        setIsOwnProfile(user.uid === currentUserId);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
+  // Fetch user data by userId and also update follow status
+  const fetchUserData = async () => {
+    try {
+      const user = await fetchUserById(userId);
+      setUserData(user);
+      setIsOwnProfile(user.uid === currentUserId);
 
+      // Check if current user follows this user
+      if (currentUserId) {
+        const followsRes = await fetch(
+          `http://localhost:8080/api/checking/follows?firebaseUid=${currentUserId}&targetObjectId=${user._id}`
+        );
+        if (followsRes.ok) {
+          const data = await followsRes.json();
+          setIsFollowing(data.follows);
+        } else {
+          console.error("Failed to check follow status");
+          setIsFollowing(false);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch user data or follow status:", error);
+    }
+  };
+
+  useEffect(() => {
     if (userId && currentUserId) {
-      getUserData();
+      fetchUserData();
     }
   }, [userId, currentUserId]);
 
@@ -51,19 +66,13 @@ function ProfilePage() {
     try {
       if (isFollowing) {
         await unfollowUser(currentUserId, userId);
-        setIsFollowing(false);
-        setUserData((prev) => ({
-          ...prev,
-          followers: prev.followers ? prev.followers.filter((id) => id !== currentUserId) : [],
-        }));
       } else {
         await followUser(currentUserId, userId);
-        setIsFollowing(true);
-        setUserData((prev) => ({
-          ...prev,
-          followers: prev.followers ? [...prev.followers, currentUserId] : [currentUserId],
-        }));
       }
+
+      // Refetch user data after follow/unfollow to sync followers count
+      await fetchUserData();
+
     } catch (error) {
       console.error("Follow/unfollow failed:", error);
     } finally {

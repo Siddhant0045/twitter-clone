@@ -7,6 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const tweetRoutes = require('./routes/tweetRoutes');
 const likeRoutes = require('./routes/likeRoutes');
 const followRoutes = require('./routes/followRoutes');
+const checkingRoutes = require('./routes/checkingroute');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/tweets', tweetRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/follows', followRoutes);
+app.use('/api/checking', checkingRoutes);
 
 // Start server
 const PORT = process.env.PORT || 8080;

@@ -16,13 +16,11 @@ const LeftSidebar = () => {
       try {
         const usersData = await fetchAllUsers();
         setUsers(usersData);
-        console.log('All Users:', usersData);
 
         const currentUser = usersData.find(u => u.uid === currentUserId);
         if (currentUser && currentUser._id) {
           const userData = await fetchUserById(currentUser._id);
           setSelectedUser(userData);
-          console.log('Selected User:', userData);
         }
       } catch (error) {
         console.error('Failed to fetch users or selected user:', error);
@@ -34,7 +32,6 @@ const LeftSidebar = () => {
     }
   }, [currentUserId]);
 
-  console.log(selectedUser?.photoURL);
 
   return (
     <aside className={styles.sidebarLeft}>
