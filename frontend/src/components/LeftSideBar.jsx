@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './LeftSideBar.module.scss';
 import { auth } from '../firebase/firebase';
 import { fetchAllUsers, fetchUserById } from '../api/userAPI';
+import defaultpic from '../public/Images/default.jpg';
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ const LeftSidebar = () => {
       getUsersAndDefaultUser();
     }
   }, [currentUserId]);
+
+  console.log(selectedUser?.photoURL);
 
   return (
     <aside className={styles.sidebarLeft}>
@@ -89,7 +92,7 @@ const LeftSidebar = () => {
       <div className={styles.profileSection}>
         <button className={styles.profileButton}>
           <img
-            src={selectedUser?.photoURL || './src/Images/default.jpg'}
+            src={selectedUser?.photoURL || defaultpic}
             alt="User Avatar"
             className={styles.avatar}
           />

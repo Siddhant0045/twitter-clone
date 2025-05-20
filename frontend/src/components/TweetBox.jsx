@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./TweetBox.module.scss";
 import { auth } from "../firebase/firebase";
+import defaultpic from "../public/Images/default.jpg";
 
 const TweetBox = ({ onTweetPosted,currentUser }) => {
   const MAX_CHARS = 280;
@@ -76,7 +77,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
     <div>
       <div className={styles.tweetBox}>
         <img
-            src={user?.photoURL || './src/Images/default.jpg'}
+            src={user?.photoURL || defaultpic}
             alt="Profile"
           className={styles.profilePic}
         />

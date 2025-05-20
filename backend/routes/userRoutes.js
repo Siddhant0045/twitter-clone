@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
 // Create new user (POST route you need)
 router.post('/', async (req, res) => {
   try {
-    const { uid, name, email, photoURL } = req.body;
+    const { uid, name, email, photoURL, username } = req.body;
 
     // Optional: Check if user already exists by uid or email (avoid duplicates)
     const existingUser = await User.findOne({ uid });
@@ -39,77 +39,9 @@ router.post('/', async (req, res) => {
       name,
       email,
       photoURL,
-      username: email.split('@')[0] || name.split(' ')[0], // Default username from email if not provided
-    });const express = require('express');
-    const router = express.Router();
-    const User = require('../models/User');
-    const Follow = require('../models/Follow');  // Import Follow model to check following status
+      username, // Default username from email if not provided
+    });   // Import Follow model to check following status
     
-    // Get all users (optional)
-    router.get('/', async (req, res) => {
-      try {
-        const users = await User.find().select('-passwordHash');
-        res.json(users);
-      } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch users' });
-      }
-    });
-    
-    // Get single user by id, with optional currentUserId query param
-    router.get('/:id', async (req, res) => {
-      try {
-        const userId = req.params.id;
-        const currentUserId = req.query.currentUserId;
-    
-        const user = await User.findById(userId).select('-passwordHash');
-        if (!user) return res.status(404).json({ error: 'User not found' });
-    
-        let isFollowing = false;
-    
-        if (currentUserId) {
-          // Check if currentUserId follows this user
-          const followDoc = await Follow.findOne({ follower: currentUserId, following: userId });
-          isFollowing = !!followDoc;
-        }
-    
-        // Return user data plus isFollowing boolean
-        res.json({ user, isFollowing });
-      } catch (err) {
-        console.error('Failed to fetch user:', err);
-        res.status(500).json({ error: 'Failed to fetch user' });
-      }
-    });
-    
-    // Create new user
-    router.post('/', async (req, res) => {
-      try {
-        const { uid, name, email, photoURL } = req.body;
-    
-        const existingUser = await User.findOne({ uid });
-        if (existingUser) {
-          return res.status(400).json({ error: 'User already exists' });
-        }
-    
-        const newUser = new User({
-          uid,
-          name,
-          email,
-          photoURL,
-          username: email.split('@')[0] || name.split(' ')[0],
-        });
-    
-        await newUser.save();
-    
-        res.status(201).json({ message: 'User created successfully', user: newUser });
-      } catch (err) {
-        console.error('Error creating user:', err);
-        res.status(500).json({ error: 'Failed to create user' });
-      }
-    });
-    
-    module.exports = router;
-    
-
     await newUser.save();
 
     res.status(201).json({ message: 'User created successfully', user: newUser });

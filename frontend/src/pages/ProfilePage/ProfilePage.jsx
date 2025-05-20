@@ -5,7 +5,7 @@ import { auth } from "../../firebase/firebase";
 import { fetchUserById } from "../../api/userAPI";
 import { followUser, unfollowUser } from "../../api/followAPI";
 import defaultBanner from "/src/public/Images/image.png";
-import defaultProfilePhoto from "/src/public/Images/Siddhant.jpg";
+import defaultProfilePhoto from "/src/public/Images/default.jpg";
 
 function ProfilePage() {
   const { userId } = useParams();
