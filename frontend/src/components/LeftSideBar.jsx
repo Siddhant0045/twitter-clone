@@ -58,7 +58,7 @@ const LeftSidebar = () => {
             <button
               className={styles.navButton}
               onClick={() => navigate(`/homepage/profile/${selectedUser?._id}`)}
-              disabled={!selectedUser} // prevents clicking before data is loaded
+              disabled={!selectedUser} 
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                 className="bi bi-person-fill" viewBox="0 0 16 16">

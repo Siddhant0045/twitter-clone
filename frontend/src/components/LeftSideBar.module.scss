@@ -1,11 +1,8 @@
 .sidebarLeft {
     width: 100%;
     max-width: 250px;
-    /* max width on large screens */
     margin-left: auto;
-    /* push it to left if inside flex */
     padding-right: 20px;
-    /* optional spacing */
     box-sizing: border-box;
     flex-shrink: 1;
     margin-top: 20px;
@@ -53,12 +50,10 @@
 
     .navButton:hover {
         background-color: #181818;
-        /* light blue */
     }
 
     .active{
         background-color: #181818;
-        /* light blue */
     }
 
     .icon {

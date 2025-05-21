@@ -49,6 +49,7 @@
   font-size: 14px;
   font-weight: 550;
   margin: 10px 0px 10px 0px;
+  cursor: pointer;
 }
 
 .or_divider{
@@ -75,7 +76,7 @@
 
 .signin_form {
   display: flex;
-  flex-direction: column; /* Stack inputs vertically */
+  flex-direction: column; 
   align-items: center;
   width: 100%;
   max-width: 300px;

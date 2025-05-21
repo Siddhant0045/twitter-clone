@@ -15,8 +15,6 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
   const currentUserId = auth.currentUser?.uid;
   const user = auth.currentUser;
 
-
-
   const remainingChars = MAX_CHARS - tweetText.length;
 
   const handleTextChange = (e) => {
@@ -63,7 +61,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
       setImageFile(null);
       setImagePreview(null);
 
-      onTweetPosted(); // Notify parent component to refresh tweets
+      onTweetPosted();
     } catch (err) {
       setError(err.message || "Error posting tweet");
     } finally {

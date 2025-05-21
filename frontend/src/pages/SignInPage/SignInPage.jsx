@@ -15,7 +15,6 @@ const SignInPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Helper function to send user data to backend
   const sendUserDataToBackend = async (user) => {
     try {
       const userData = {
@@ -23,7 +22,7 @@ const SignInPage = () => {
         name: user.displayName || user.email.split("@")[0],
         email: user.email,
         photoURL: user.photoURL || "",
-        username: user.email.split("@")[0], // fallback username
+        username: user.email.split("@")[0], 
       };
 
       console.log("Sending user data to backend:", userData);

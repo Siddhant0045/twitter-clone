@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const User = require('../models/User'); // Adjust path as needed
+const User = require('../models/User');
 
-// Route 4: Check if Firebase UID user follows target user by _id
+// Check if Firebase UID user follows target user by _id
 router.get('/follows', async (req, res) => {
     try {
       const { firebaseUid, targetObjectId } = req.query;

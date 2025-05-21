@@ -6,6 +6,6 @@ const likeSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-likeSchema.index({ tweet: 1, user: 1 }, { unique: true }); // Prevent duplicate likes
+likeSchema.index({ tweet: 1, user: 1 }, { unique: true }); 
 
 module.exports = mongoose.model('Like', likeSchema);

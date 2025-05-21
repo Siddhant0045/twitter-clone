@@ -166,13 +166,11 @@ function ProfilePage() {
       <div className={styles.profile_page_posts}>
         {selectedTab === "posts" && (
           <div style={{width: "100%",height: "200px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-          {/* Render user's liked posts here */}
           <p>Feature not implemented yet</p>
         </div>
         )}
         {selectedTab === "likes" && (
           <div style={{width: "100%",height: "200px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-            {/* Render user's liked posts here */}
             <p>Feature not implemented yet</p>
           </div>
         )}

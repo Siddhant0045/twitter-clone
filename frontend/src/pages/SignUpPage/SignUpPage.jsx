@@ -23,7 +23,7 @@ const SignUpPage = () => {
         name: user.displayName || user.email.split("@")[0],
         email: user.email,
         photoURL: user.photoURL || "",
-        username: user.email.split("@")[0], // fallback username
+        username: user.email.split("@")[0], 
       };
 
       console.log("Sending user data to backend:", userData);
@@ -73,13 +73,12 @@ const SignUpPage = () => {
   };
 
   return (
+    <div className={styles.signup_x_align}>
+      <div className={styles.x_logo_div}>
+      <svg className={styles.x_logo_signup} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 462.799"><path fill="#fff" d="M403.229 0h78.506L310.219 196.04 512 462.799H354.002L230.261 301.007 88.669 462.799h-78.56l183.455-209.683L0 0h161.999l111.856 147.88L403.229 0zm-27.556 415.805h43.505L138.363 44.527h-46.68l283.99 371.278z"/></svg></div>
     <div className={styles.signup_center}>
-      <img
-        src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?semt=ais_hybrid&w=740"
-        alt="Logo"
-        className={styles.x_logo_signup}
-      />
-      <h1 className={styles.create_account_word}>Create an account</h1>
+      <h1 style={{color:"white",fontSize:"66px",width:"600px",marginLeft:"180px",marginBottom:"50px"}}>Happening Now</h1>
+      <h1 className={styles.create_account_word}>Join Today.</h1>
 
       <button onClick={handleGoogleSignUp} className={styles.signup_google}>
         Sign Up with Google
@@ -126,6 +125,7 @@ const SignUpPage = () => {
       <button onClick={() => navigate("/signin")} className={styles.signin_btn}>
         Sign in
       </button>
+    </div>
     </div>
   );
 };

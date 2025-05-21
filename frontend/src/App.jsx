@@ -9,14 +9,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public Routes */}
         <Route path="/" element={<SignUpPage />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
 
-        {/* Protected Nested Route for HomePage */}
         <Route
-          path="/homepage/*" // allow nested routes under /homepage
+          path="/homepage/*" 
           element={
             <PrivateRoute>
               <HomePage />

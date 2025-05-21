@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/api/users'; // Adjust if your route prefix differs
+const BASE_URL = 'http://localhost:8080/api/users'; 
 
 // Get all users
 export const fetchAllUsers = async () => {

@@ -14,12 +14,10 @@
     
       &::-webkit-scrollbar-track {
         background: #121212;
-        /* dark track */
       }
     
       &::-webkit-scrollbar-thumb {
         background-color: #444;
-        /* dark thumb */
         border-radius: 4px;
       }
     
@@ -27,7 +25,6 @@
         background-color: #666;
       }
     
-      /* Firefox */
       scrollbar-width: thin;
       scrollbar-color: #444 #121212;
   }
@@ -126,9 +123,9 @@
 
 .buttons_profile_page {
     display: flex;
-    justify-content: center; // Centers buttons horizontally
-    padding-bottom: 8px; // Some spacing below buttons
-    gap: 40px; // Spacing between the buttons
+    justify-content: center; 
+    padding-bottom: 8px; 
+    gap: 40px; 
     border-bottom: 1px solid #2f3336;
   }
   
@@ -141,7 +138,6 @@
     position: relative;
     cursor: pointer;
   
-    // Optional: show active indicator as a line below button
     &.active {
   
       &::after {
@@ -151,7 +147,7 @@
       bottom: -8px;
       left: 50%;
       transform: translateX(-50%);
-      width: 50%; // Half the width of the button
+      width: 50%; 
       height: 3px;
       background-color: #1d9bf0;
       border-radius: 2px;

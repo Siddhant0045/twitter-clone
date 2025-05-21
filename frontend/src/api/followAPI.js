@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api/follows"; // adjust base URL as per your backend
+const BASE_URL = "http://localhost:8080/api/follows"; 
 
 // Follow a user
 export async function followUser(followerId, followingId) {

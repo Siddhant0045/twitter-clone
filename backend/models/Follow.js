@@ -6,6 +6,6 @@ const followSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-followSchema.index({ follower: 1, following: 1 }, { unique: true }); // Prevent duplicate follows
+followSchema.index({ follower: 1, following: 1 }, { unique: true });
 
 module.exports = mongoose.model('Follow', followSchema);

@@ -1,4 +1,3 @@
-// src/components/PrivateRoute.jsx
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { auth } from "../firebase/firebase";
@@ -10,7 +9,7 @@ const loadingStyle = {
   left: 0,
   width: '100vw',
   height: '100vh',
-  backgroundColor: '#000', // full black background
+  backgroundColor: '#000', 
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -20,8 +19,8 @@ const loadingStyle = {
 const spinnerStyle = {
   width: '60px',
   height: '60px',
-  border: '6px solid rgba(74, 144, 226, 0.3)', // lighter blue circle border
-  borderTop: '6px solid #4A90E2',               // bright blue top border
+  border: '6px solid rgba(74, 144, 226, 0.3)', 
+  borderTop: '6px solid #4A90E2',              
   borderRadius: '50%',
   animation: 'spin 1s linear infinite',
 };

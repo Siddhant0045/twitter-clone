@@ -1,7 +1,7 @@
 import { db } from "../firebase/firebase";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 
-import { fetchUserById } from "./userAPI"; // adjust the path
+import { fetchUserById } from "./userAPI";
 
 export async function fetchFollowing(userId) {
   console.log("Fetching following for:", userId);

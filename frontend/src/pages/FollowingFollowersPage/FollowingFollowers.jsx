@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import styles from "./FollowingFollowers.module.scss";
 import defaultProfilePhoto from "/src/public/Images/Siddhant.jpg";
-import { fetchFollowing, fetchFollowers } from "../../api/followHelpers"; // Adjust path as needed
+import { fetchFollowing, fetchFollowers } from "../../api/followHelpers"; 
 
 function FollowingFollowers() {
   const { userId } = useParams();
@@ -10,7 +10,6 @@ function FollowingFollowers() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Determine type from URL (e.g., /following or /followers)
   const type = location.pathname.includes("followers") ? "followers" : "following";
 
   useEffect(() => {

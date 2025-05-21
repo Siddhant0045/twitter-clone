@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Make sure this path is correct
+const User = require('../models/User'); 
 
 // Get all users (optional)
 router.get('/', async (req, res) => {
@@ -39,8 +39,8 @@ router.post('/', async (req, res) => {
       name,
       email,
       photoURL,
-      username, // Default username from email if not provided
-    });   // Import Follow model to check following status
+      username,
+    });   
     
     await newUser.save();
 

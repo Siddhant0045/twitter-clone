@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Feed() {
   const [tweets, setTweets] = useState([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [activeTab, setActiveTab] = useState("forYou"); // default active tab
+  const [activeTab, setActiveTab] = useState("forYou");
   const [followingIds, setFollowingIds] = useState([]);
 
   const currentUserId = auth.currentUser.uid;
@@ -45,7 +45,6 @@ function Feed() {
         let filteredTweets = data;
         if (activeTab === "following") {
           filteredTweets = data.filter((tweet) => {
-            // author._id is expected to be a string ObjectId here
             const authorId = tweet.author?._id?.toString();
             return followingIds.includes(authorId);
           });

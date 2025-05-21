@@ -7,7 +7,7 @@ const User = require('../models/User');
 router.get('/', async (req, res) => {
   try {
     const tweets = await Tweet.find()
-      .populate('author', 'name photoURL') // Populate author info
+      .populate('author', 'name photoURL') 
       .sort({ createdAt: -1 });
     res.json(tweets);
   } catch (err) {

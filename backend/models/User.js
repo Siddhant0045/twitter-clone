@@ -6,9 +6,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   photoURL: { type: String },
 
-  // Make these optional if not provided for OAuth users:
-  username: { type: String }, // remove required: true
-  passwordHash: { type: String }, // remove required: true
+  username: { type: String }, 
+  passwordHash: { type: String }, 
 
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],

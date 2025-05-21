@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
   try {
     const { tweet, user: firebaseUid } = req.body;
 
-    const user = await User.findOne({ uid: firebaseUid }); // 'uid' should be Firebase UID field in your User model
+    const user = await User.findOne({ uid: firebaseUid }); 
     if (!user) return res.status(400).json({ error: 'User not found' });
 
     const tweetExists = await Tweet.exists({ _id: tweet });
@@ -55,7 +55,7 @@ router.get('/count/:tweetId', async (req, res) => {
   }
 });
 
-// GET /api/likes/isLiked?tweetId=xxx&userId=FIREBASE_UID
+// check if a tweet is liked by a user
 router.get('/isLiked', async (req, res) => {
   try {
     const { tweetId, userId: firebaseUid } = req.query;

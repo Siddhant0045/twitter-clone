@@ -8,19 +8,16 @@
   color: white;
   overflow-y: scroll;
 
-  /* WebKit browsers */
   &::-webkit-scrollbar {
     width: 2px;
   }
 
   &::-webkit-scrollbar-track {
     background: #121212;
-    /* dark track */
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #444;
-    /* dark thumb */
     border-radius: 4px;
   }
 
@@ -28,7 +25,6 @@
     background-color: #666;
   }
 
-  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: #444 #121212;
 }
@@ -66,7 +62,6 @@
     position: absolute;
     bottom: 0;
     left: 50%;
-    /* center it */
     transform: translateX(-50%);
     width: 100px;
     height: 2px;
