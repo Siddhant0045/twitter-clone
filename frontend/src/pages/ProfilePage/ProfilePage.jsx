@@ -6,80 +6,101 @@ import { fetchUserById } from "../../api/userAPI";
 import { followUser, unfollowUser } from "../../api/followAPI";
 import defaultBanner from "/src/public/Images/image.png";
 import defaultProfilePhoto from "/src/public/Images/default.jpg";
+import axios from "axios";
+import EditProfile from "../EditProfile/EditProfile"; // adjust the path as needed
 
 function ProfilePage() {
   const { userId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("posts");
-
+  const [showEditProfile, setShowEditProfile] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [loadingFollow, setLoadingFollow] = useState(false);
+  const [tweets, setTweets] = useState([]);
+  const [likedTweets, setLikedTweets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const currentUserId = auth.currentUser?.uid;
 
-  // Fetch user data by userId and also update follow status
+  const handleProfileUpdate = async () => {
+    await fetchUserData(); // re-fetch user data to get updated bio and other info
+  };
+
   const fetchUserData = async () => {
     try {
       const user = await fetchUserById(userId);
       setUserData(user);
       setIsOwnProfile(user.uid === currentUserId);
 
-      // Check if current user follows this user
       if (currentUserId) {
-        const followsRes = await fetch(
+        const res = await fetch(
           `http://localhost:8080/api/checking/follows?firebaseUid=${currentUserId}&targetObjectId=${user._id}`
         );
-        if (followsRes.ok) {
-          const data = await followsRes.json();
+        if (res.ok) {
+          const data = await res.json();
           setIsFollowing(data.follows);
         } else {
-          console.error("Failed to check follow status");
           setIsFollowing(false);
         }
       }
     } catch (error) {
-      console.error("Failed to fetch user data or follow status:", error);
+      console.error("Error fetching user data or follow status:", error);
+    }
+  };
+
+  const fetchTweets = async () => {
+    setLoading(true);
+    try {
+      if (selectedTab === "posts") {
+        const res = await axios.get(`http://localhost:8080/api/usertweets/${userId}`);
+        setTweets(res.data);
+      } else if (selectedTab === "likes") {
+        const res = await axios.get(`http://localhost:8080/api/userlikedtweets/${userId}`);
+        setLikedTweets(res.data);
+      }
+    } catch (err) {
+      console.error("Error fetching tweets:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (userId && currentUserId) {
-      fetchUserData();
-    }
+    fetchUserData();
   }, [userId, currentUserId]);
 
-  if (!userData) return <div>Loading...</div>;
-
-  const isFollowRoute =
-    location.pathname.endsWith("/followers") || location.pathname.endsWith("/following");
-
-  if (isFollowRoute) {
-    return <Outlet />;
-  }
+  useEffect(() => {
+    fetchTweets();
+  }, [selectedTab, userId]);
 
   const handleFollowToggle = async () => {
     if (loadingFollow || !currentUserId) return;
     setLoadingFollow(true);
-
     try {
       if (isFollowing) {
         await unfollowUser(currentUserId, userId);
       } else {
         await followUser(currentUserId, userId);
       }
-
-      // Refetch user data after follow/unfollow to sync followers count
       await fetchUserData();
-
     } catch (error) {
       console.error("Follow/unfollow failed:", error);
     } finally {
       setLoadingFollow(false);
     }
   };
+
+  const isFollowRoute =
+    location.pathname.endsWith("/followers") || location.pathname.endsWith("/following");
+
+  if (!userData) return <div>Loading...</div>;
+
+  if (isFollowRoute) {
+    return <Outlet />;
+  }
 
   return (
     <main className={styles.profile_section}>
@@ -111,7 +132,9 @@ function ProfilePage() {
             alt="profile"
           />
           {isOwnProfile ? (
-            <button className={styles.edit_profile_btn}>Edit profile</button>
+            <button className={styles.edit_profile_btn} onClick={() => setShowEditProfile(true)}>
+              Edit profile
+            </button>
           ) : (
             <button
               onClick={handleFollowToggle}
@@ -143,42 +166,79 @@ function ProfilePage() {
             className={styles.followLink}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <strong>{userData.following ? userData.following.length : 0}</strong> Following
+            <strong>{userData.following?.length || 0}</strong> Following
           </Link>
           <Link
             to="followers"
             className={styles.followLink}
             style={{ textDecoration: "none", color: "inherit", marginLeft: "15px" }}
           >
-            <strong>{userData.followers ? userData.followers.length : 0}</strong> Followers
+            <strong>{userData.followers?.length || 0}</strong> Followers
           </Link>
         </div>
       </div>
 
       <div className={styles.buttons_profile_page}>
-        <div className={`${styles.button_of_profile_page} ${selectedTab === "posts" ? styles.active : ""}`} onClick={() => setSelectedTab("posts")}>
+        <div
+          className={`${styles.button_of_profile_page} ${
+            selectedTab === "posts" ? styles.active : ""
+          }`}
+          onClick={() => setSelectedTab("posts")}
+        >
           Posts
         </div>
-        <div className={`${styles.button_of_profile_page} ${selectedTab === "likes" ? styles.active : ""}`} onClick={() => setSelectedTab("likes")}>
+        <div
+          className={`${styles.button_of_profile_page} ${
+            selectedTab === "likes" ? styles.active : ""
+          }`}
+          onClick={() => setSelectedTab("likes")}
+        >
           Likes
         </div>
       </div>
+
       <div className={styles.profile_page_posts}>
-        {selectedTab === "posts" && (
-          <div style={{width: "100%",height: "200px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <p>Feature not implemented yet</p>
-        </div>
-        )}
-        {selectedTab === "likes" && (
-          <div style={{width: "100%",height: "200px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <p>Feature not implemented yet</p>
-          </div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : selectedTab === "posts" ? (
+          tweets.length === 0 ? (
+            <p>No tweets yet.</p>
+          ) : (
+            tweets.map((tweet) => (
+              <div key={tweet._id} className="tweet-card">
+                <p>{tweet.content}</p>
+                <small>{new Date(tweet.createdAt).toLocaleString()}</small>
+              </div>
+            ))
+          )
+        ) : likedTweets.length === 0 ? (
+          <p>No liked tweets yet.</p>
+        ) : (
+          likedTweets.map((tweet) => (
+            <div key={tweet._id} className="tweet-card">
+              <p>{tweet.content}</p>
+              <small>{new Date(tweet.createdAt).toLocaleString()}</small>
+            </div>
+          ))
         )}
       </div>
 
       <div style={{ marginTop: "20px" }}>
         <Outlet />
       </div>
+      {showEditProfile && (
+  <div className={styles.modalOverlay}>
+    <div className={styles.modalContent}>
+      <EditProfile
+        userData={userData}
+        onClose={() => setShowEditProfile(false)}
+        onUpdate={handleProfileUpdate}  // <-- new callback
+      />
+    </div>
+  </div>
+)}
+
+
     </main>
   );
 }

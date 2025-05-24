@@ -9,7 +9,30 @@ const likeRoutes = require('./routes/likeRoutes');
 const followRoutes = require('./routes/followRoutes');
 const checkingRoutes = require('./routes/checkingroute');
 const giveObjectIdRoutes = require('./routes/giveobjectid');
+const userlikedRoutes = require('./routes/userlikedtweets');
+const userTweetsRoute = require('./routes/usertweets');
+const updateBioRoute = require('./routes/updatebio');
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const multer = require("multer");
 
+// Configure your Cloudinary credentials here
+cloudinary.config({
+  cloud_name: "dkblqemw6", 
+  api_key: "228236138866173",      
+  api_secret: "0sbPnU-cmVxdwrcmUJMP8wVumwA",
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "twitter_clone_images",
+    allowed_formats: ["jpg", "jpeg", "png", "gif"],
+    transformation: [{ width: 800, height: 800, crop: "limit" }],
+  },
+});
+
+const upload = multer({ storage: storage });
 const app = express();
 
 // Middleware
@@ -28,6 +51,9 @@ app.use('/api/likes', likeRoutes);
 app.use('/api/follows', followRoutes);
 app.use('/api/checking', checkingRoutes);
 app.use('/api/objectid', giveObjectIdRoutes);
+app.use('/api/userlikedtweets', userlikedRoutes);
+app.use('/api/usertweets', userTweetsRoute);
+app.use('/api/updatebio', updateBioRoute);
 
 // Start server
 const PORT = process.env.PORT || 8080;
