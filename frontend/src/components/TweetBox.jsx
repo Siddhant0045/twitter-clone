@@ -38,29 +38,35 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
   };
 
   const handleTweet = async () => {
-    if (tweetText.trim().length === 0) return;
-
+    if (tweetText.trim().length === 0 && !imageFile) return;
+  
     setLoading(true);
     setError(null);
-
+  
     try {
+      const formData = new FormData();
+      formData.append("content", tweetText);
+      formData.append("author", currentUserId);
+      formData.append("email", user?.email || "");
+      if (imageFile) {
+        console.log("Image file:", imageFile);
+        formData.append("image", imageFile);
+      }
+  
       const response = await fetch("http://localhost:8080/api/tweets", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content: tweetText, author: currentUserId , email: user?.email}),
+        body: formData,  // send FormData directly, no Content-Type header
       });
-
+  
       if (!response.ok) {
         const errText = await response.text();
         throw new Error(errText || "Failed to post tweet");
       }
-
+  
       setTweetText("");
       setImageFile(null);
       setImagePreview(null);
-
+  
       onTweetPosted();
     } catch (err) {
       setError(err.message || "Error posting tweet");
@@ -68,6 +74,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
       setLoading(false);
     }
   };
+  
 
   const isTweetValid = tweetText.trim().length > 0 || imageFile !== null;
 

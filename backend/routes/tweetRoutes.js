@@ -16,30 +16,41 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new tweet
-router.post('/', async (req, res) => {
+const upload = require('../middleware/upload'); // multer + cloudinary
+
+// POST /api/tweets
+router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { content, author: userUid, email } = req.body;
 
-    if (!content || !userUid || !email) {
-      return res.status(400).json({ error: 'Content and author uid are required' });
+    if (!content && !req.file) {
+      return res.status(400).json({ error: 'Tweet must have text or image.' });
     }
 
-    // Find user by uid
+    if (!userUid || !email) {
+      return res.status(400).json({ error: 'Author UID and email are required.' });
+    }
+
     const user = await User.findOne({ uid: userUid });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found with this uid' });
-    }
+    if (!user) return res.status(404).json({ error: 'User not found.' });
 
-    // Create tweet with user's ObjectId
-    const tweet = new Tweet({ content, author: user._id, email });
+    const imageUrl = req.file ? req.file.path : null;
+
+    const tweet = new Tweet({
+      content,
+      author: user._id,
+      email,
+      imageUrl,
+    });
+    console.log('Saving tweet:', tweet);
     await tweet.save();
-
     res.status(201).json(tweet);
   } catch (err) {
-    console.error('Failed to create tweet:', err);
-    res.status(400).json({ error: 'Failed to create tweet', details: err.message });
+    console.error('Tweet creation error:', err);
+    res.status(500).json({ error: 'Failed to create tweet.' });
   }
 });
+
 
 // Get tweets by user UID (not ObjectId)
 router.get('/user/:userUid', async (req, res) => {
