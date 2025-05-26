@@ -34,13 +34,13 @@ router.post('/', upload.single('image'), async (req, res) => {
     const user = await User.findOne({ uid: userUid });
     if (!user) return res.status(404).json({ error: 'User not found.' });
 
-    const imageUrl = req.file ? req.file.path : null;
+    const imageURL = req.file ? req.file.path : null;
 
     const tweet = new Tweet({
       content,
       author: user._id,
       email,
-      imageUrl,
+      imageURL,
     });
     console.log('Saving tweet:', tweet);
     await tweet.save();

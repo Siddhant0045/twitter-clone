@@ -15,14 +15,37 @@ const SignUpPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const uploadImageToCloudinary = async (imageUrl) => {
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/dkblqemw6/image/upload`,
+        {
+          file: imageUrl,
+          upload_preset: "unsigned_preset",
+        }
+      );
+      return response.data.secure_url;
+    } catch (err) {
+      console.error("Cloudinary upload error:", err.message);
+      throw new Error("Failed to upload image to Cloudinary.");
+    }
+  };
+
   // Helper function to send user data to backend
   const sendUserDataToBackend = async (user) => {
     try {
+      let photoURL = user.photoURL || "";
+      console.log("User photoURL:", photoURL);
+      if (photoURL) {
+        photoURL = await uploadImageToCloudinary(photoURL);
+      }
+      console.log(photoURL);
+
       const userData = {
         uid: user.uid,
         name: user.displayName || user.email.split("@")[0],
         email: user.email,
-        photoURL: user.photoURL || "",
+        photoURL,
         username: user.email.split("@")[0], 
       };
 

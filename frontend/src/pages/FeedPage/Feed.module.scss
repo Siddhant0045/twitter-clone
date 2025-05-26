@@ -142,3 +142,11 @@
     color: #ff69b4;
   }
 }
+
+.tweetImage {
+  width: 90%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 8px;
+}

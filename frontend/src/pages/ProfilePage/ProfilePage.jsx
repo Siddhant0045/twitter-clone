@@ -110,7 +110,7 @@ function ProfilePage() {
           onClick={() => navigate(-1)}
           style={{ cursor: "pointer" }}
         >
-          ← Back
+          ← 
         </div>
         <div style={{ marginLeft: "20px" }}>
           <h6 className={styles.profile_name}>{userData.name}</h6>
@@ -198,29 +198,72 @@ function ProfilePage() {
       </div>
 
       <div className={styles.profile_page_posts}>
-        {loading ? (
-          <p>Loading...</p>
-        ) : selectedTab === "posts" ? (
-          tweets.length === 0 ? (
-            <p>No tweets yet.</p>
-          ) : (
-            tweets.map((tweet) => (
-              <div key={tweet._id} className="tweet-card">
-                <p>{tweet.content}</p>
-                <small>{new Date(tweet.createdAt).toLocaleString()}</small>
-              </div>
-            ))
-          )
-        ) : likedTweets.length === 0 ? (
-          <p>No liked tweets yet.</p>
-        ) : (
-          likedTweets.map((tweet) => (
-            <div key={tweet._id} className="tweet-card">
-              <p>{tweet.content}</p>
-              <small>{new Date(tweet.createdAt).toLocaleString()}</small>
-            </div>
-          ))
+      {loading ? (
+  <p>Loading...</p>
+) : selectedTab === "posts" ? (
+  tweets.length === 0 ? (
+    <p>No tweets yet.</p>
+  ) : (
+    tweets.map((tweet) => (
+      <div key={tweet._id} className={styles.tweetContainer}>
+        <img
+          src={userData.photoURL || defaultProfilePhoto}
+          alt="profile"
+          className={styles.tweetProfilePhoto}
+        />
+        <div className={styles.tweetContentWrapper}>
+          <div className={styles.tweetHeader}>
+            <strong>{userData.name}</strong>{" "}
+            <span className={styles.tweetUsername}>@{userData.username}</span>{" "}
+            <span className={styles.tweetDate}>
+              · {new Date(tweet.createdAt).toLocaleDateString()}
+            </span>
+          </div>
+          <div className={styles.tweetContent}>{tweet.content}</div>
+          {tweet.imageUrl && (
+            <img
+              src={tweet.imageUrl}
+              alt="tweet"
+              className={styles.tweetImage}
+            />
+          )}
+        </div>
+      </div>
+    ))
+  )
+) : likedTweets.length === 0 ? (
+  <p>No liked tweets yet.</p>
+) : (
+  likedTweets.map((tweet) => (
+    console.log(tweet.author),
+    <div key={tweet._id} className={styles.tweetContainer}>
+      <img
+        src={tweet.author.photoURL || defaultProfilePhoto}
+        alt="profile"
+        className={styles.tweetProfilePhoto}
+      />
+      <div className={styles.tweetContentWrapper}>
+        <div className={styles.tweetHeader}>
+          <strong>{tweet.author.name || "User"}</strong>{" "}
+          <span className={styles.tweetUsername}>@{tweet.author.username|| "username"}</span>{" "}
+          <span className={styles.tweetDate}>
+            · {new Date(tweet.createdAt).toLocaleDateString()}
+          </span>
+        </div>
+        <div className={styles.tweetContent}>{tweet.content}</div>
+        {tweet.imageUrl && (
+          <img
+            src={tweet.imageUrl}
+            alt="tweet"
+            className={styles.tweetImage}
+          />
         )}
+      </div>
+    </div>
+  ))
+)}
+
+
       </div>
 
       <div style={{ marginTop: "20px" }}>

@@ -11,6 +11,7 @@ function Feed() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [activeTab, setActiveTab] = useState("forYou");
   const [followingIds, setFollowingIds] = useState([]);
+  const [selectedPhoto, setSelectedPhoto] = useState(null); // <-- Added for photo modal
 
   const currentUserId = auth.currentUser.uid;
 
@@ -25,7 +26,6 @@ function Feed() {
         const userData = await res.json();
 
         setFollowingIds(userData.following || []);
-        console.log(userData.following);
       } catch (err) {
         console.error("Failed to fetch user data by Firebase UID", err);
       }
@@ -186,6 +186,15 @@ function Feed() {
                 </div>
 
                 <p>{tweet.content}</p>
+                {tweet.imageURL && (
+                  <img
+                    src={tweet.imageURL}
+                    alt="Tweet"
+                    className={styles.tweetImage}
+                    style={{ cursor: "pointer" }} // <-- Add pointer cursor
+                    onClick={() => setSelectedPhoto(tweet.imageURL)} // <-- Open modal on click
+                  />
+                )}
 
                 <div className={styles.tweetActions}>
                   <FaRegComment />
@@ -225,6 +234,37 @@ function Feed() {
           ))
         )}
       </div>
+
+      {selectedPhoto && (
+        <div
+          onClick={() => setSelectedPhoto(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.8)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10000,
+            cursor: "zoom-out",
+          }}
+        >
+          <img
+            src={selectedPhoto}
+            alt="Full size"
+            style={{
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+              borderRadius: "8px",
+              boxShadow: "0 0 20px rgba(0,0,0,0.7)",
+            }}
+            onClick={(e) => e.stopPropagation()} // Prevent modal close on image click
+          />
+        </div>
+      )}
     </main>
   );
 }

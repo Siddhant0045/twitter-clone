@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styles from "./TweetBox.module.scss";
 import { auth } from "../firebase/firebase";
 import defaultpic from "../public/Images/default.jpg";
+import { fetchAllUsers } from "../api/userAPI";
+
 
 const TweetBox = ({ onTweetPosted,currentUser }) => {
   const MAX_CHARS = 280;
@@ -14,6 +16,9 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
 
   const currentUserId = auth.currentUser?.uid;
   const user = auth.currentUser;
+
+  const [backendPhotoURL, setBackendPhotoURL] = useState(null); // ✅ New State
+
 
   const remainingChars = MAX_CHARS - tweetText.length;
 
@@ -74,7 +79,29 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchUserFromBackend = async () => {
+      try {
+        const allUsers = await fetchAllUsers();
+        const backendUser = allUsers.find(
+          (u) => u.uid === currentUserId
+        );
+        if (backendUser?.photoURL) {
+          setBackendPhotoURL(backendUser.photoURL);
+        }
+      } catch (err) {
+        console.error("Failed to fetch backend user:", err);
+      }
+    };
+
+    if (currentUserId) {
+      fetchUserFromBackend();
+    }
+  }, [currentUserId]);
+
   
+  const profilePicURL = backendPhotoURL || defaultpic;
 
   const isTweetValid = tweetText.trim().length > 0 || imageFile !== null;
 
@@ -82,7 +109,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
     <div>
       <div className={styles.tweetBox}>
         <img
-            src={user?.photoURL || defaultpic}
+            src={profilePicURL}
             alt="Profile"
           className={styles.profilePic}
         />
