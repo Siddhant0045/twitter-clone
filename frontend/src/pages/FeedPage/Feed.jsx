@@ -40,7 +40,7 @@ function Feed() {
   useEffect(() => {
     const fetchTweetsWithLikes = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/tweets");
+        const res = await fetch("http://localhost:8080/api/tweets"||"https://twitter-clone-kfoi.onrender.com/api/tweets");
         const data = await res.json();
 
         let filteredTweets = data;
@@ -54,9 +54,9 @@ function Feed() {
         const tweetsWithLikes = await Promise.all(
           filteredTweets.map(async (tweet) => {
             const [countRes, likedRes] = await Promise.all([
-              fetch(`http://localhost:8080/api/likes/count/${tweet._id}`),
+              fetch(`http://localhost:8080/api/likes/count/${tweet._id}`||`https://twitter-clone-kfoi.onrender.com/api/likes/count/${tweet._id}`),
               fetch(
-                `http://localhost:8080/api/likes/isLiked?tweetId=${tweet._id}&userId=${currentUserId}`
+                `http://localhost:8080/api/likes/isLiked?tweetId=${tweet._id}&userId=${currentUserId}`||`https://twitter-clone-kfoi.onrender.com/api/likes/isLiked?tweetId=${tweet._id}&userId=${currentUserId}`
               ),
             ]);
             const countData = await countRes.json();
@@ -84,7 +84,7 @@ function Feed() {
   };
 
   const toggleLike = async (tweetId, isLiked) => {
-    const url = "http://localhost:8080/api/likes";
+    const url = "http://localhost:8080/api/likes"||"https://twitter-clone-kfoi.onrender.com/api/likes";
     const payload = {
       tweet: tweetId,
       user: currentUserId,
