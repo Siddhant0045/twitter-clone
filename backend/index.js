@@ -18,10 +18,12 @@ const multer = require("multer");
 
 // Configure your Cloudinary credentials here
 cloudinary.config({
-  cloud_name: "dkblqemw6", 
-  api_key: "228236138866173",      
-  api_secret: "0sbPnU-cmVxdwrcmUJMP8wVumwA",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
+require('dotenv').config();
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -40,7 +42,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB Atlas
-mongoose.connect('mongodb+srv://Siddhant_Shinde:siddhant%4045@twitterclonehaha.it7tny4.mongodb.net/?retryWrites=true&w=majority&appName=TwitterCloneHaHa')
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB connection error:', err));
 
