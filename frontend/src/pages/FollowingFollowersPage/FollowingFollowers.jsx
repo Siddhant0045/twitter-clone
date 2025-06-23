@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import styles from "./FollowingFollowers.module.scss";
-import defaultProfilePhoto from "/src/public/Images/Siddhant.jpg";
+import defaultProfilePhoto from "/src/public/Images/default.jpg";
 import { fetchFollowing, fetchFollowers } from "../../api/followHelpers"; 
 
 function FollowingFollowers() {
@@ -9,6 +9,7 @@ function FollowingFollowers() {
   const location = useLocation();
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const type = location.pathname.includes("followers") ? "followers" : "following";
 
@@ -37,6 +38,18 @@ function FollowingFollowers() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.profilesection_header}>
+        <div
+          className={styles.back_option_profilesection}
+          onClick={() => navigate(-1)}
+          style={{ cursor: "pointer" }}
+        >
+        ← 
+        </div>
+        <div style={{ marginLeft: "20px" }}>
+          <h6 className={styles.profile_name}>Go Back</h6>
+        </div>
+      </div>
       {list.length === 0 ? (
         <p className={styles.noDataText}>No {type} to show.</p>
       ) : (

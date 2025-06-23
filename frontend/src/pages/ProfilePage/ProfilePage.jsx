@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation, Link, Outlet, useNavigate } from "react-router-dom";
 import styles from "./ProfilePage.module.scss";
 import { auth } from "../../firebase/firebase";
-import { fetchUserById } from "../../api/userAPI";
+import { fetchUserById,fetchAllUsers } from "../../api/userAPI";
 import { followUser, unfollowUser } from "../../api/followAPI";
 import defaultBanner from "/src/public/Images/image.png";
 import defaultProfilePhoto from "/src/public/Images/default.jpg";
@@ -22,6 +22,8 @@ function ProfilePage() {
   const [tweets, setTweets] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [allUsers, setAllUsers] = useState([]);
+
 
   const currentUserId = auth.currentUser?.uid;
 
@@ -93,6 +95,20 @@ function ProfilePage() {
     }
   };
 
+  useEffect(() => {
+  async function getUsers() {
+    try {
+      const users = await fetchAllUsers();
+      setAllUsers(users);
+    } catch (err) {
+      console.error("Failed to fetch users:", err);
+    }
+  }
+
+  getUsers();
+}, []);
+
+
   const isFollowRoute =
     location.pathname.endsWith("/followers") || location.pathname.endsWith("/following");
 
@@ -114,7 +130,6 @@ function ProfilePage() {
         </div>
         <div style={{ marginLeft: "20px" }}>
           <h6 className={styles.profile_name}>{userData.name}</h6>
-          <p className={styles.profile_no_of_tweets}>{userData.postsCount || 0} posts</p>
         </div>
       </div>
 
@@ -149,6 +164,9 @@ function ProfilePage() {
                 borderRadius: "20px",
                 fontWeight: "bold",
                 marginLeft: "15px",
+                position: "relative",
+                top: "-120px",
+                left: "300px",
               }}
             >
               {loadingFollow ? "Loading..." : isFollowing ? "Unfollow" : "Follow"}
@@ -234,34 +252,42 @@ function ProfilePage() {
 ) : likedTweets.length === 0 ? (
   <p>No liked tweets yet.</p>
 ) : (
-  likedTweets.map((tweet) => (
-    console.log(tweet.author),
-    <div key={tweet._id} className={styles.tweetContainer}>
-      <img
-        src={tweet.author.photoURL || defaultProfilePhoto}
-        alt="profile"
-        className={styles.tweetProfilePhoto}
-      />
-      <div className={styles.tweetContentWrapper}>
-        <div className={styles.tweetHeader}>
-          <strong>{tweet.author.name || "User"}</strong>{" "}
-          <span className={styles.tweetUsername}>@{tweet.author.username|| "username"}</span>{" "}
-          <span className={styles.tweetDate}>
-            · {new Date(tweet.createdAt).toLocaleDateString()}
-          </span>
+  likedTweets.map((tweet) => {
+    const author = allUsers.find((user) => user._id === tweet.author._id);
+    console.log("Author:", author);
+    console.log("Tweet:", tweet);
+    console.log("All Users:", allUsers);
+    return (
+      <div key={tweet._id} className={styles.tweetContainer}>
+        <img
+          src={author?.photoURL || defaultProfilePhoto}
+          alt="profile"
+          className={styles.tweetProfilePhoto}
+        />
+        <div className={styles.tweetContentWrapper}>
+          <div className={styles.tweetHeader}>
+            <strong>{author?.name || "User"}</strong>{" "}
+            <span className={styles.tweetUsername}>
+              @{author?.username || "username"}
+            </span>{" "}
+            <span className={styles.tweetDate}>
+              · {new Date(tweet.createdAt).toLocaleDateString()}
+            </span>
+          </div>
+          <div className={styles.tweetContent}>{tweet.content}</div>
+          {tweet.imageUrl && (
+            <img
+              src={tweet.imageUrl}
+              alt="tweet"
+              className={styles.tweetImage}
+            />
+          )}
         </div>
-        <div className={styles.tweetContent}>{tweet.content}</div>
-        {tweet.imageUrl && (
-          <img
-            src={tweet.imageUrl}
-            alt="tweet"
-            className={styles.tweetImage}
-          />
-        )}
       </div>
-    </div>
-  ))
-)}
+    );
+  })
+)
+}
 
 
       </div>
