@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/api/users'; 
+const BASE_URL = 'http://localhost:8080/api/users'||'https://twitter-clone-kfoi.onrender.com/api/users'; 
 
 // Get all users
 export const fetchAllUsers = async () => {

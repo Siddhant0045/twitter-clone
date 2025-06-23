@@ -58,7 +58,7 @@ const TweetBox = ({ onTweetPosted,currentUser }) => {
         formData.append("image", imageFile);
       }
   
-      const response = await fetch("http://localhost:8080/api/tweets", {
+      const response = await fetch("http://localhost:8080/api/tweets"||"https://twitter-clone-kfoi.onrender.com/api/tweets", {
         method: "POST",
         body: formData,  // send FormData directly, no Content-Type header
       });

@@ -11,7 +11,7 @@ function EditProfile({ userData ,onClose, onUpdate}) {
     e.preventDefault();
   
     try {
-      const response = await fetch("http://localhost:8080/api/updatebio", {
+      const response = await fetch("http://localhost:8080/api/updatebio"||"https://twitter-clone-kfoi.onrender.com/api/updatebio", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

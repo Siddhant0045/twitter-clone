@@ -20,7 +20,8 @@ function Feed() {
     const getUserObjectIdAndFollowing = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/objectid/byFirebaseUid/${currentUserId}`
+          `http://localhost:8080/api/objectid/byFirebaseUid/${currentUserId}`||
+          `https://twitter-clone-kfoi.onrender.com/api/objectid/byFirebaseUid/${currentUserId}`
         );
         if (!res.ok) throw new Error("Failed to fetch user by Firebase UID");
         const userData = await res.json();
