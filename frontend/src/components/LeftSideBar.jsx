@@ -35,7 +35,7 @@ const LeftSidebar = () => {
 
   return (
     <aside className={styles.sidebarLeft}>
-      <div className={styles.logo}>X-Clone</div>
+      <div className={styles.logo}>Twixter</div>
       <nav>
         <ul className={styles.navList}>
           <li>
