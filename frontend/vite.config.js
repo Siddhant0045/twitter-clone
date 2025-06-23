@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080' || 'https://twitter-clone-kfoi.onrender.com',
+        target: 'https://twitter-clone-kfoi.onrender.com',
         changeOrigin: true,
         secure: false,
       },

@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api/follows" || "https://twitter-clone-kfoi.onrender.com/api/follows"; 
+const BASE_URL = "https://twitter-clone-kfoi.onrender.com/api/follows"; 
 
 // Follow a user
 export async function followUser(followerId, followingId) {

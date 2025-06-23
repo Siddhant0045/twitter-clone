@@ -39,7 +39,7 @@ function ProfilePage() {
 
       if (currentUserId) {
         const res = await fetch(
-          `http://localhost:8080/api/checking/follows?firebaseUid=${currentUserId}&targetObjectId=${user._id}`||`https://twitter-clone-kfoi.onrender.com/api/checking/follows?firebaseUid=${currentUserId}&targetObjectId=${user._id}`
+          `https://twitter-clone-kfoi.onrender.com/api/checking/follows?firebaseUid=${currentUserId}&targetObjectId=${user._id}`
         );
         if (res.ok) {
           const data = await res.json();
@@ -57,10 +57,10 @@ function ProfilePage() {
     setLoading(true);
     try {
       if (selectedTab === "posts") {
-        const res = await axios.get(`http://localhost:8080/api/usertweets/${userId}`||`https://twitter-clone-kfoi.onrender.com/api/usertweets/${userId}`);
+        const res = await axios.get(`https://twitter-clone-kfoi.onrender.com/api/usertweets/${userId}`);
         setTweets(res.data);
       } else if (selectedTab === "likes") {
-        const res = await axios.get(`http://localhost:8080/api/userlikedtweets/${userId}`||`https://twitter-clone-kfoi.onrender.com/api/userlikedtweets/${userId}`);
+        const res = await axios.get(`https://twitter-clone-kfoi.onrender.com/api/userlikedtweets/${userId}`);
         setLikedTweets(res.data);
       }
     } catch (err) {

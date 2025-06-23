@@ -51,7 +51,7 @@ const SignUpPage = () => {
 
       console.log("Sending user data to backend:", userData);
 
-      await axios.post("http://localhost:8080/api/users"||"https://twitter-clone-kfoi.onrender.com/api/users", userData);
+      await axios.post("https://twitter-clone-kfoi.onrender.com/api/users", userData);
       console.log("User data sent to backend successfully");
     } catch (err) {
       console.error(
